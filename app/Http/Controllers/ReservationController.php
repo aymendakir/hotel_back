@@ -41,7 +41,7 @@ class ReservationController extends Controller
                     'etat_reservation'=>'required',
                     'client_id'=>'required',
                     'chambre_id'=>'required',
-                   // 'paiement_id'=>'required',
+
                 ]);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
@@ -61,7 +61,7 @@ class ReservationController extends Controller
                     'etat_reservation'=>$request->etat_reservation,
                     'client_id'=>$request->client_id,
                     'chambre_id'=>$request->chambre_id,
-                   // 'paiement_id'=>$request->chambre_id,
+
 
 
                 ]); return response()->json([

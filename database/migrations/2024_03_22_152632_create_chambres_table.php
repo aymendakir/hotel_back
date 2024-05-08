@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_chambre');
             $table->string('image');
 
-            $table->float('price');
+            $table->float('price')->nullable();
             $table->string('Chambre_etat')->nullable();
         });
     }

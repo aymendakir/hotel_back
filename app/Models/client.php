@@ -49,5 +49,9 @@ class client extends Authenticatable
     protected $primaryKey = 'id_client';
 
     public $timestamps = false;
+    public function paiement()
+    {
+        return $this->hasOne('App\Models\paiement','client_id');
 
+    }
 }

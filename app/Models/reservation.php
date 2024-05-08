@@ -19,6 +19,7 @@ class reservation extends Model
                               'chambre_id',
                               'paiement_id',
 
+
         ];
         protected $primaryKey = 'id_reservation';
         public $timestamps = false;

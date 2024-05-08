@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id("id_paiement");
-            $table->decimal("montant");
+            $table->decimal("montant_ht");
+            $table->decimal("montant_total")->nullable();
             $table->string("Mode_de_paiement");
             $table->string("paiment_etat");
             $table->date("date_paiement");

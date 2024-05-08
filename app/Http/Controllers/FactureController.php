@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\facture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FactureController extends Controller
 {
@@ -13,6 +14,12 @@ class FactureController extends Controller
     public function index()
     {
         //
+
+        $facture=facture::latest()->take(1)->get();
+        return response()->json([
+            'facture'=>$facture
+        ],200);
+
     }
 
     /**
@@ -29,6 +36,28 @@ class FactureController extends Controller
     public function store(Request $request)
     {
         //
+        $validator= Validator::make($request->all(),[
+           'montant_ht' => 'required',
+           'paiement_id'=>'required',
+           'montant_total'=>'nullable',
+
+
+
+       ]);
+        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 422);;
+$facture=new facture();
+$facture::create([
+
+
+    'montant_total' => $request->montant_total,
+    'montant_ht' => $request->montant_ht,
+
+    'paiement_id'=>$request->paiement_id,
+
+
+]); return response()->json([
+        'message '=>'facture added successfully'
+    ]);
     }
 
     /**

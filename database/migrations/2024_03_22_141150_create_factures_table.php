@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('factures', function (Blueprint $table) {
             $table->id('id_facture');
-            $table->decimal('montant', 8, 2);
+            $table->decimal('montant_ht', 8);
+            $table->decimal('montant_total', 8);
            // $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('paiement_id');
+           // $table->unsignedBigInteger('paiement_id');
          //   $table->foreign('client_id')->references('id_client')->on('clients');
-            $table->foreign('paiement_id')->references('id_paiement')->on('paiements');
+            //$table->foreign('paiement_id')->references('id_paiement')->on('paiements');
             $table->timestamps();
 
         });

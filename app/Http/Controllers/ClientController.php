@@ -64,6 +64,10 @@ class ClientController extends Controller
             $user= $client->update([
                 'telephone' => $request->tele,
                 'cin_client' => $request->cin,
+                'nom_client'=>$request->lastname,
+                'prenom_client'=>$request->firstname,
+
+
             ]);
 
             // Return a success response

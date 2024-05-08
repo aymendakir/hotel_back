@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\chambre;
-use App\Models\Hotel_chamber;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +23,7 @@ class ChambreController extends Controller
     }
     public function index1()
     {
-        $chambers=chambre::all()->where('Chambre_etat','available');
+        $chambers=chambre::all()->where('Chambre_etat','Available');
         return response()->json([
             'chambers'=>$chambers
         ],200);
@@ -105,7 +105,8 @@ class ChambreController extends Controller
         $validator = Validator::make($request->all(), [
 
             'image' => 'nullable|image',
-            'price' => 'nullable|numeric'
+            'price' => 'nullable',
+            'Chambre_etat'=>'nullable'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -130,6 +131,7 @@ class ChambreController extends Controller
         $chambre->update([
             'image'=>$fileName,
             'price'=>$request->price,
+            'Chambre_etat'=>$request->Chambre_etat
 
         ]); return response()->json([
         'message '=>'item update successfully'

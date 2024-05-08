@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use Stripe;
 use Stripe\Charge;
+use App\Models\paiement;
+
 class stripPaimnt extends Controller
 {
+
     //
     public function stripPost(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient("sk_test_51OxYmL1D2gj5qMyIVaw6XQ8wIhPOUyDt3wzs4qUZx7K5wwcJqQStkHLHoQRE2A2mYie0LgbVQuBhqDopEV8UuYCw00DwBxRgAy");
 
         $response = $stripe->checkout->sessions->create([
             'success_url' => $request->link,
@@ -44,4 +47,5 @@ class stripPaimnt extends Controller
 
 
     }
+
 }

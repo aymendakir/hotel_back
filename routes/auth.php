@@ -6,10 +6,16 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\ChamberController;
 
+
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FactureController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\stripPaimnt;
 use App\Models\chambre;
 use App\Models\client;
+use App\Models\paiement;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
@@ -21,7 +27,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->name('login');
 Route::post('/login/admin', [AuthenticatedSessionController::class, 'store_admin'])
     ->middleware('guest:adminate')
-    ->name('login');
+    ->name('login_admin');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     ->middleware('guest')
@@ -62,13 +68,19 @@ Route::get('/Typechamber/lits/{Typechamber}', [\App\Http\Controllers\Typechambre
 
 
 
-Route::post('stripe', [\App\Http\Controllers\stripPaimnt::class, 'stripPost']);
-Route::post('reservation', [\App\Http\Controllers\ReservationController::class, 'store']);
+Route::post('stripe', [stripPaimnt::class, 'stripPost']);
+Route::post('reservation', [ReservationController::class, 'store']);
+Route::post('payment', [PaiementController::class, 'store']);
+Route::get('payment', [PaiementController::class, 'index']);
+Route::get('facture', [FactureController::class, 'index']);
+Route::post('facture', [FactureController::class, 'store']);
+Route::get("/facture/1",function (){
+  return paiement::find(7)->client;
+});
 
 
 
-
-Route::put('updateclient/{client}', [\App\Http\Controllers\ClientController::class, 'update']);
+Route::put('updateclient/{client}', [ClientController::class, 'update']);
 
 
 
