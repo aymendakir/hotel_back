@@ -72,7 +72,7 @@ class ClientController extends Controller
 
             // Return a success response
             return response()->json([
-                'message' => 'Item updated successfully'
+                'message' => 'client updated successfully'
             ]);
 
 
