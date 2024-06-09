@@ -16,6 +16,9 @@ use App\Http\Controllers\stripPaimnt;
 use App\Models\chambre;
 use App\Models\client;
 use App\Models\paiement;
+
+use Illuminate\Http\Request;
+use App\Models\reservation;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
@@ -70,14 +73,25 @@ Route::get('/Typechamber/lits/{Typechamber}', [\App\Http\Controllers\Typechambre
 
 Route::post('stripe', [stripPaimnt::class, 'stripPost']);
 Route::post('reservation', [ReservationController::class, 'store']);
+Route::post('/reservation/{reservation}', [ReservationController::class, 'update']);
+Route::post('/reservation/annulation/{reservation}', [ReservationController::class, 'annulation']);
 Route::post('payment', [PaiementController::class, 'store']);
 Route::get('payment', [PaiementController::class, 'index']);
 Route::get('facture', [FactureController::class, 'index']);
 Route::post('facture', [FactureController::class, 'store']);
-Route::get("/facture/1",function (){
-  return paiement::find(7)->client;
-});
+Route::post('/upload/{facture}', [FactureController::class, 'update']);
+Route::get('/factures/{facture}', [FactureController::class, 'show']);
 
+Route::post('/reservations/all', function (Request $request) {
+    $id = $request->id;
+    $client = Client::find($id);
+
+    if (!$client) {
+        return response()->json(['error' => $id], 404);
+    }
+
+    return $client->reservation;
+});
 
 
 Route::put('updateclient/{client}', [ClientController::class, 'update']);

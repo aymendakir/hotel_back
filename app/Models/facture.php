@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\App;
 class facture extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         "montant_ht",
         "montant_total",
         "paiement_id",
-        "client_id"
+        "client_id",
+        "pdf",
+        "reservation_id",
+        'id_facture'
+
     ];
     protected $primaryKey = 'id_facture';
 

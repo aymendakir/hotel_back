@@ -15,15 +15,15 @@ class PaiementController extends Controller
     public function index()
     {
         //
-        $paimeent=paiement::latest()->take(1)->get();
+        $paimeent = paiement::latest()->take(1)->get();
         return response()->json([
-            'paiment'=>$paimeent
-        ],200);
+            'paiment' => $paimeent
+        ], 200);
     } /* public function index2(paiement $paiement)
-    {
-        //
-        return paiement::find(7)->facture_1;
-    }*/
+   {
+       //
+       return paiement::find(7)->facture_1;
+   }*/
 
     /**
      * Show the form for creating a new resource.
@@ -43,24 +43,26 @@ class PaiementController extends Controller
 
             'montant_total' => 'nullable',
             'montant_ht' => 'required',
-            'Mode_de_paiement'=>'required',
-            'paiement_etat'=>'required',
-            'date_paiement'=>'required',
+            'Mode_de_paiement' => 'required',
+            'paiement_etat' => 'required',
+            'date_paiement' => 'required',
         ]);
-        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 422);
-        $paiment=new paiement();
+        if ($validator->fails())
+            return response()->json(['errors' => $validator->errors()], 422);
 
-        $paiment::create([
-            'montant_total'=>$request->montant_total,
-            'montant_ht'=>$request->montant_ht,
-            'Mode_de_paiement'=>$request->Mode_de_paiement,
-            'paiment_etat'=>$request->paiement_etat,
-            'date_paiement'=>$request->date_paiement,
-            'client_id'=>$request->client_id
 
-        ]); return response()->json([
-        'message '=>'item added successfully'
-    ]);
+        $paiment = paiement::create([
+            'montant_total' => $request->montant_total,
+            'montant_ht' => $request->montant_ht,
+            'Mode_de_paiement' => $request->Mode_de_paiement,
+            'paiment_etat' => $request->paiement_etat,
+            'date_paiement' => $request->date_paiement,
+            'client_id' => $request->client_id
+
+        ]);
+        return response()->json([
+            $paiment
+        ]);
     }
 
     /**

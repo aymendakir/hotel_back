@@ -3,6 +3,8 @@
 use App\Http\Controllers\ChamberController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FactureController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,4 @@ Route::middleware(['auth:sanctum,adminate'])->get('/user', function (Request $re
 Route::middleware(['auth:adminate'])->get('/user2', function (Request $request) {
     return $request->user();
 });
+

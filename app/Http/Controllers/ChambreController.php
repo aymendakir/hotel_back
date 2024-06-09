@@ -16,30 +16,30 @@ class ChambreController extends Controller
      */
     public function index()
     {
-        $chambers=chambre::all();//->where('status','disp');
+        $chambers = chambre::all();//->where('status','disp');
         return response()->json([
-            'chambers'=>$chambers
-        ],200);
+            'chambers' => $chambers
+        ], 200);
     }
     public function index1()
     {
-        $chambers=chambre::all()->where('Chambre_etat','Available');
+        $chambers = chambre::all()->where('Chambre_etat', 'Available');
         return response()->json([
-            'chambers'=>$chambers
-        ],200);
+            'chambers' => $chambers
+        ], 200);
     }
-    public function show(chambre $chambre )
+    public function show(chambre $chambre)
     {
-        $chamber=chambre::find($chambre);
+        $chamber = chambre::find($chambre);
         return response()->json($chamber);
 
     }
-    public function show1(chambre $chambre )
-{
-    $chamber=chambre::all()->find($chambre);
-    return response()->json($chamber);
+    public function show1(chambre $chambre)
+    {
+        $chamber = chambre::all()->find($chambre);
+        return response()->json($chamber);
 
-}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -58,9 +58,9 @@ class ChambreController extends Controller
         $validator = Validator::make($request->all(), [
 
             'image' => 'required|image',
-            'price'=>'required',
-            'Chambre_etat'=>'required',
-            'type'=>'required',
+            'price' => 'required',
+            'Chambre_etat' => 'required',
+            'type' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -69,19 +69,20 @@ class ChambreController extends Controller
         $fileName = Str::uuid() . '.' . $request->image->getClientOriginalExtension();
         $request->image->storeAs('public/images', $fileName);
 
-        $chamber=new chambre();
+        $chamber = new chambre();
 
         $chamber::create([
 
-            'image'=>$fileName,
+            'image' => $fileName,
 
-            'price'=>$request->price,
-            'Chambre_etat'=>$request->Chambre_etat,
-            'type'=>$request->type
+            'price' => $request->price,
+            'Chambre_etat' => $request->Chambre_etat,
+            'type' => $request->type
 
-        ]); return response()->json([
-        'message '=>'item added successfully'
-    ]);
+        ]);
+        return response()->json([
+            'message ' => 'item added successfully'
+        ]);
     }
 
     /**
@@ -106,7 +107,7 @@ class ChambreController extends Controller
 
             'image' => 'nullable|image',
             'price' => 'nullable',
-            'Chambre_etat'=>'nullable'
+            'Chambre_etat' => 'nullable'
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -126,16 +127,17 @@ class ChambreController extends Controller
         }
 
 
-        $chamber=chambre::find($chambre);
+        $chamber = chambre::find($chambre);
 
         $chambre->update([
-            'image'=>$fileName,
-            'price'=>$request->price,
-            'Chambre_etat'=>$request->Chambre_etat
+            'image' => $fileName,
+            'price' => $request->price,
+            'Chambre_etat' => $request->Chambre_etat
 
-        ]); return response()->json([
-        'message '=>'item update successfully'
-    ]);
+        ]);
+        return response()->json([
+            'message ' => 'item update successfully'
+        ]);
 
     }
 
@@ -145,17 +147,17 @@ class ChambreController extends Controller
     public function destroy(chambre $chambre)
     {
         //
-        if ($chambre->image){
-            $exist=Storage::disk('public')->exists("/images/{$chambre->image}");
-            if ($exist){
-                $exist=Storage::disk('public')->delete("/images/{$chambre->image}");
+        if ($chambre->image) {
+            $exist = Storage::disk('public')->exists("/images/{$chambre->image}");
+            if ($exist) {
+                $exist = Storage::disk('public')->delete("/images/{$chambre->image}");
 
             }
         }
 
         $chambre->delete();
         return response()->json([
-            'message'=>'delete is done'
+            'message' => 'delete is done'
         ]);
     }
 }

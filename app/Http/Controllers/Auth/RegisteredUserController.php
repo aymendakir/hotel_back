@@ -24,12 +24,14 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'nom_client' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.client::class],
+            'prenom_client' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . client::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = client::create([
             'nom_client' => $request->nom_client,
+            'prenom_client' => $request->prenom_client,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

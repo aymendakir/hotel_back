@@ -24,7 +24,8 @@ class client extends Authenticatable
         'email',
         'password',
         'id_client',
-        'telephone'
+        'telephone',
+        "id_reservation"
     ];
 
     /**
@@ -51,7 +52,12 @@ class client extends Authenticatable
     public $timestamps = false;
     public function paiement()
     {
-        return $this->hasOne('App\Models\paiement','client_id');
+        return $this->hasOne('App\Models\paiement', 'client_id');
 
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class, 'client_id');
     }
 }

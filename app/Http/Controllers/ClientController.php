@@ -58,22 +58,24 @@ class ClientController extends Controller
         $clients = client::find($client);
 
 
-// Check if the client record exists
+        // Check if the client record exists
 
-            // Update the client record with the new values
-            $user= $client->update([
-                'telephone' => $request->tele,
-                'cin_client' => $request->cin,
-                'nom_client'=>$request->lastname,
-                'prenom_client'=>$request->firstname,
+        // Update the client record with the new values
+        $user = $client->update([
+            'telephone' => $request->tele,
+            'cin_client' => $request->cin,
+            'nom_client' => $request->lastname,
+            'prenom_client' => $request->firstname,
+            'email' => $request->email,
 
 
-            ]);
 
-            // Return a success response
-            return response()->json([
-                'message' => 'client is updated successfully'
-            ]);
+        ]);
+
+        // Return a success response
+        return response()->json([
+            'message' => 'client is updated successfully'
+        ]);
 
 
 
